@@ -7,7 +7,7 @@ setup:
 build:
 	pipenv run yapf downloader.py --in-place
 	pipenv run mypy downloader.py --ignore-missing-imports
-	pipenv run pylint downloader.py --disable=missing-docstring
+	pipenv run pylint downloader.py
 
 run:
 	pipenv run python3 downloader.py
