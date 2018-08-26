@@ -12,4 +12,7 @@ build:
 run:
 	pipenv run python3 downloader.py
 
-.PHONY: setup build run
+test:
+	pipenv run pytest
+
+.PHONY: setup build run test

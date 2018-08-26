@@ -1,2 +1,5 @@
+# Python
+.pytest_cache
+
 # Downloader
 .env
