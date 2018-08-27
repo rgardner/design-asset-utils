@@ -15,4 +15,7 @@ run:
 test:
 	pipenv run pytest
 
-.PHONY: setup build run test
+deploy:
+	cd .. && git subtree push --prefix creative-market heroku master
+
+.PHONY: setup build run test deploy
