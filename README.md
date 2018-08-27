@@ -6,27 +6,40 @@ Market each week.
 
 ## Usage
 
-```sh
-$ cd downloader
-$ pipenv install
-$ pipenv run ./downloader.py
-```
-
-
-## Development
-
-Complete the one-time setup:
+Install dependencies:
 
 ```sh
-$ cd downloader
-$ # install dependencies
-$ make setup
+$ cd creative-market
+$ pipenv install --dev
 $ # edit necessary environment variables
 $ cp .env.example .env
 $ vim .env
 ```
 
-Then, run `make` to validate the Python code and `make run` to run the program.
+To sync the 6 free goods offered by Creative Market to your Dropbox:
+
+```sh
+$ pipenv run ./downloader.py
+```
+
+To validate that the script succeeded, check your Dropbox, or:
+
+```sh
+$ pipenv run pytest test_downloader.py
+```
+
+`checker` validates that Creative Market thinks you've synced your 6 free
+goods, and sends an email if an error occurred:
+
+```sh
+$ pipenv run ./checker.py
+```
+
+And finally, to run some validations on the Python scripts:
+
+```sh
+$ make build
+```
 
 
 ## Creative Market Terms of Service
