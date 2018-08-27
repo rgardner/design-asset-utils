@@ -14,7 +14,7 @@ import time
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 
-CHROME_DRIVER_EXE_ABS_PATH = os.environ['CREATIVE_MARKET_CHROME_DRIVER']
+CHROME_SHIM = os.environ['GOOGLE_CHROME_SHIM']
 DEBUG = bool(os.environ['CREATIVE_MARKET_DEBUG'])
 FACEBOOK_USERNAME = os.environ['CREATIVE_MARKET_FB_USERNAME']
 FACEBOOK_PASSWORD = os.environ['CREATIVE_MARKET_FB_PASSWORD']
@@ -37,12 +37,11 @@ class CreativeMarketError(Exception):
 
 def main():
     chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = CHROME_SHIM
     if not DEBUG:
         chrome_options.add_argument('headless')
 
-    with closing_chrome_driver(
-            chrome_options=chrome_options,
-            executable_path=CHROME_DRIVER_EXE_ABS_PATH) as driver:
+    with closing_chrome_driver(chrome_options=chrome_options) as driver:
         try:
             download_free_goods(driver, FACEBOOK_USERNAME, FACEBOOK_PASSWORD)
         except WebDriverException as ex:
