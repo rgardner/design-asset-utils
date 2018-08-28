@@ -38,7 +38,7 @@ $ pipenv run python checker.py --send-email-on-error
 And finally, to run some validations on the Python scripts:
 
 ```sh
-$ make build
+$ make check
 ```
 
 

@@ -1,10 +1,10 @@
-all: build
+all: check
 
 setup:
 	brew cask install chromedriver || 0
 	cd downloader && pipenv install --dev
 
-build:
+check:
 	pipenv run yapf downloader.py --in-place
 	pipenv run mypy downloader.py --ignore-missing-imports
 	pipenv run pylint downloader.py
@@ -18,4 +18,4 @@ test:
 deploy:
 	cd .. && git subtree push --prefix creative-market heroku master
 
-.PHONY: setup build run test deploy
+.PHONY: setup check run test deploy
