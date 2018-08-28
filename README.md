@@ -19,20 +19,20 @@ $ vim .env
 To sync the 6 free goods offered by Creative Market to your Dropbox:
 
 ```sh
-$ pipenv run ./downloader.py
+$ pipenv run python downloader.py
 ```
 
 To validate that the script succeeded, check your Dropbox, or:
 
 ```sh
-$ pipenv run pytest test_downloader.py
+$ pipenv run python checker.py
 ```
 
 `checker` validates that Creative Market thinks you've synced your 6 free
-goods, and sends an email if an error occurred:
+goods, and optionally, sends an email if an error occurred:
 
 ```sh
-$ pipenv run ./checker.py
+$ pipenv run python checker.py --send-email-on-error
 ```
 
 And finally, to run some validations on the Python scripts:

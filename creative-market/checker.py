@@ -13,6 +13,9 @@ import requests
 
 import creative_market
 
+DEBUG = bool(os.environ['CREATIVE_MARKET_DEBUG'])
+FACEBOOK_USERNAME = os.environ['CREATIVE_MARKET_FB_USERNAME']
+FACEBOOK_PASSWORD = os.environ['CREATIVE_MARKET_FB_PASSWORD']
 MAILGUN_SEND_URL = os.environ['CREATIVE_MARKET_MAILGUN_URL']
 MAILGUN_API_KEY = os.environ['CREATIVE_MARKET_MAILGUN_API_KEY']
 MAILGUN_FROM = os.environ['CREATIVE_MARKET_MAILGUN_FROM']
@@ -22,13 +25,13 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 def main():
-    if not has_download_succeeded():
+    if not has_download_succeeded() and '--send-email-on-error' in sys.argv:
         notify_download_failed()
 
 
 def has_download_succeeded():
-    with creative_market.chrome_driver(CHROME_SHIM, DEBUG) as driver:
-        creative_market.login(driver, username, password)
+    with creative_market.chrome_driver(DEBUG) as driver:
+        creative_market.login(driver, FACEBOOK_USERNAME, FACEBOOK_PASSWORD)
 
         driver.get('https://creativemarket.com/free-goods')
         free_sync_links = creative_market.get_free_dropbox_sync_links(driver)

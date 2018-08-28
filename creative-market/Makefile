@@ -13,7 +13,7 @@ run:
 	pipenv run python3 downloader.py
 
 test:
-	pipenv run pytest
+	pipenv run pytest -m 'not email'
 
 deploy:
 	cd .. && git subtree push --prefix creative-market heroku master

@@ -14,7 +14,7 @@ def scheduled_download():
 @SCHEDULER.scheduled_job('cron', day_of_week='mon', hour=17, minute=15)
 def scheduled_check():
     print('Scheduling checker...')
-    subprocess.run(['python3', 'checker.py'])
+    subprocess.run(['python3', 'checker.py', '--send-email-on-error'])
 
 
 def main():

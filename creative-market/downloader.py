@@ -15,7 +15,6 @@ from selenium.common.exceptions import WebDriverException
 
 import creative_market
 
-CHROME_SHIM = os.environ['GOOGLE_CHROME_SHIM']
 DEBUG = bool(os.environ['CREATIVE_MARKET_DEBUG'])
 FACEBOOK_USERNAME = os.environ['CREATIVE_MARKET_FB_USERNAME']
 FACEBOOK_PASSWORD = os.environ['CREATIVE_MARKET_FB_PASSWORD']
@@ -25,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 
 def main():
-    with creative_market.chrome_driver(CHROME_SHIM, DEBUG) as driver:
+    with creative_market.chrome_driver(DEBUG) as driver:
         try:
             download_free_goods(driver, FACEBOOK_USERNAME, FACEBOOK_PASSWORD)
         except WebDriverException as ex:

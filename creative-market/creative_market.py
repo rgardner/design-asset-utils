@@ -1,7 +1,11 @@
 from contextlib import contextmanager
+import os
+import time
 
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
+
+CHROME_SHIM = os.environ['GOOGLE_CHROME_SHIM']
 
 
 class CreativeMarketError(WebDriverException):
@@ -17,9 +21,9 @@ class CreativeMarketError(WebDriverException):
 
 
 @contextmanager
-def chrome_driver(chrome_binary_location, headless=True):
+def chrome_driver(headless=True):
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = chrome_binary_location
+    chrome_options.binary_location = CHROME_SHIM
     if headless:
         chrome_options.add_argument('headless')
 
