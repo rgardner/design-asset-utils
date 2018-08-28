@@ -18,7 +18,8 @@ CHROME_SHIM = os.environ['GOOGLE_CHROME_SHIM']
 DEBUG = bool(os.environ['CREATIVE_MARKET_DEBUG'])
 FACEBOOK_USERNAME = os.environ['CREATIVE_MARKET_FB_USERNAME']
 FACEBOOK_PASSWORD = os.environ['CREATIVE_MARKET_FB_PASSWORD']
-LOGGER = logging.getLogger(__name__)
+
+logger = logging.getLogger(__name__)
 
 
 def main():
@@ -37,17 +38,17 @@ def download_free_goods(driver, username, password):
     links_to_click = [
         link for link in free_sync_links if link.text == 'Sync to Dropbox'
     ]
-    LOGGER.info('%d unclicked sync links found', len(links_to_click))
+    logger.info('%d unclicked sync links found', len(links_to_click))
 
     for link in links_to_click:
         link.click()
         time.sleep(1)
 
-    LOGGER.info('Successfully downloaded free goods')
+    logger.info('Successfully downloaded free goods')
 
 
 def log_error(ex: WebDriverException):
-    LOGGER.error('Creative Market downloader failed: %s', ex.msg)
+    logger.error('Creative Market downloader failed: %s', ex.msg)
     error_screenshot_filename = f'{datetime.utcnow().isoformat()}.png'
     with open(error_screenshot_filename, 'wb') as f:
         f.write(ex.screen)
