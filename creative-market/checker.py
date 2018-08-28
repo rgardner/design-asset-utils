@@ -5,7 +5,9 @@ usage: ./checker.py
 Tool to check if download succeeded, and if not, send a notification email.
 """
 
+import logging
 import os
+import sys
 
 import requests
 
@@ -15,6 +17,8 @@ MAILGUN_SEND_URL = os.environ['CREATIVE_MARKET_MAILGUN_URL']
 MAILGUN_API_KEY = os.environ['CREATIVE_MARKET_MAILGUN_API_KEY']
 MAILGUN_FROM = os.environ['CREATIVE_MARKET_MAILGUN_FROM']
 NOTIFY_TO_EMAIL_ADDRESS = os.environ['CREATIVE_MARKET_NOTIFY_TO_EMAIL_ADDRESS']
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
 def main():

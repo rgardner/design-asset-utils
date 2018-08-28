@@ -8,6 +8,7 @@ Tool to automatically download the free goods each week from creativemarket.com
 from datetime import datetime
 import logging
 import os
+import sys
 import time
 
 from selenium.common.exceptions import WebDriverException
@@ -19,6 +20,7 @@ DEBUG = bool(os.environ['CREATIVE_MARKET_DEBUG'])
 FACEBOOK_USERNAME = os.environ['CREATIVE_MARKET_FB_USERNAME']
 FACEBOOK_PASSWORD = os.environ['CREATIVE_MARKET_FB_PASSWORD']
 
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
