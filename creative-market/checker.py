@@ -5,13 +5,11 @@ usage: ./checker.py
 Tool to check if download succeeded, and if not, send a notification email.
 """
 
-from contextlib import contextmanager
 import os
 
 import requests
-from selenium import webdriver
 
-import downloader
+import creative_market
 
 MAILGUN_SEND_URL = os.environ['CREATIVE_MARKET_MAILGUN_URL']
 MAILGUN_API_KEY = os.environ['CREATIVE_MARKET_MAILGUN_API_KEY']
@@ -25,16 +23,11 @@ def main():
 
 
 def has_download_succeeded():
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = CHROME_SHIM
-    if not DEBUG:
-        chrome_options.add_argument('headless')
+    with creative_market.chrome_driver(CHROME_SHIM, DEBUG) as driver:
+        creative_market.login(driver, username, password)
 
-    with downloader.closing_chrome_driver(
-            chrome_options=chrome_options) as driver:
-        downloader.download_free_goods(driver, downloader.FACEBOOK_USERNAME,
-                                       downloader.FACEBOOK_PASSWORD)
-        free_sync_links = downloader.get_free_dropbox_sync_links(driver)
+        driver.get('https://creativemarket.com/free-goods')
+        free_sync_links = creative_market.get_free_dropbox_sync_links(driver)
         return all(link.text == 'Synced' for link in free_sync_links)
 
 
