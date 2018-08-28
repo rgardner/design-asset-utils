@@ -13,7 +13,10 @@ run:
 	pipenv run python3 downloader.py
 
 test:
-	pipenv run pytest -m 'not email'
+	pipenv run pytest -m 'not email and not redis_queue'
+
+test-redis-queue:
+	docker-compose run worker pytest -m 'redis_queue'
 
 deploy:
 	cd .. && git subtree push --prefix creative-market heroku master

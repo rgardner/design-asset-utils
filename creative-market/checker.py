@@ -24,8 +24,8 @@ NOTIFY_TO_EMAIL_ADDRESS = os.environ['CREATIVE_MARKET_NOTIFY_TO_EMAIL_ADDRESS']
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 
-def main():
-    if not has_download_succeeded() and '--send-email-on-error' in sys.argv:
+def main(argv=None):
+    if not has_download_succeeded() and argv and '--send-email-on-error' in argv:
         notify_download_failed()
 
 
@@ -51,4 +51,4 @@ def notify_download_failed():
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv)
