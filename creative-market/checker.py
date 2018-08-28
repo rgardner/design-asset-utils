@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+"""
+usage: ./checker.py
+
+Tool to check if download succeeded, and if not, send a notification email.
+"""
+
 from contextlib import contextmanager
 import os
 
@@ -19,11 +26,12 @@ def main():
 
 def has_download_succeeded():
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('headless')
+    chrome_options.binary_location = CHROME_SHIM
+    if not DEBUG:
+        chrome_options.add_argument('headless')
 
     with downloader.closing_chrome_driver(
-            chrome_options=chrome_options,
-            executable_path=downloader.CHROME_DRIVER_EXE_ABS_PATH) as driver:
+            chrome_options=chrome_options) as driver:
         downloader.download_free_goods(driver, downloader.FACEBOOK_USERNAME,
                                        downloader.FACEBOOK_PASSWORD)
         free_sync_links = downloader.get_free_dropbox_sync_links(driver)

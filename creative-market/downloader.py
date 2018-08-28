@@ -21,7 +21,7 @@ FACEBOOK_PASSWORD = os.environ['CREATIVE_MARKET_FB_PASSWORD']
 LOGGER = logging.getLogger(__name__)
 
 
-class CreativeMarketError(Exception):
+class CreativeMarketError(WebDriverException):
     """Raised when an error occurs syncing the Creative Market free goods.
 
     Attributes:
@@ -29,10 +29,8 @@ class CreativeMarketError(Exception):
         page_screenshot: binary
     """
 
-    def __init__(self, message, driver):
-        super().__init__()
-        self.message = message
-        self.page_screenshot = driver.get_screenshot_as_png()
+    def __init__(self, msg, driver):
+        super().__init__(msg, driver.get_screenshot_as_png())
 
 
 def main():
@@ -45,8 +43,6 @@ def main():
         try:
             download_free_goods(driver, FACEBOOK_USERNAME, FACEBOOK_PASSWORD)
         except WebDriverException as ex:
-            log_error(ex)
-        except CreativeMarketError as ex:
             log_error(ex)
 
 
@@ -107,11 +103,11 @@ def get_free_dropbox_sync_links(driver):
     return [link for link in dropbox_sync_links if link.is_displayed()]
 
 
-def log_error(ex):
-    LOGGER.error('Creative Market downloader failed')
+def log_error(ex: WebDriverException):
+    LOGGER.error('Creative Market downloader failed: %s', ex.msg)
     error_screenshot_filename = f'{datetime.utcnow().isoformat()}.png'
     with open(error_screenshot_filename, 'wb') as f:
-        f.write(ex.page_screenshot)
+        f.write(ex.screen)
 
 
 @contextmanager
