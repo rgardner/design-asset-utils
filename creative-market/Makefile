@@ -5,9 +5,9 @@ setup:
 	cd downloader && pipenv install --dev
 
 check:
-	pipenv run yapf downloader.py --in-place
-	pipenv run mypy downloader.py --ignore-missing-imports
-	pipenv run pylint downloader.py
+	pipenv run yapf *.py --in-place
+	pipenv run mypy *.py --ignore-missing-imports
+	pipenv run pylint *.py
 
 run:
 	pipenv run python3 downloader.py

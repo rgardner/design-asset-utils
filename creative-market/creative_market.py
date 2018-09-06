@@ -62,9 +62,9 @@ def login(driver, username, password):
 
     # switch back to primary window
     driver.switch_to_window(driver.window_handles[0])
-    if driver.current_url != 'https://creativemarket.com/':
-        message = f'unexpected url after logging in: {driver.current_url}'
-        raise CreativeMarketError(message, driver)
+    # if driver.current_url != 'https://creativemarket.com/':
+    # message = f'unexpected url after logging in: {driver.current_url}'
+    # raise CreativeMarketError(message, driver)
 
 
 def get_free_dropbox_sync_links(driver):

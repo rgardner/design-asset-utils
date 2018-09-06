@@ -39,7 +39,7 @@ def has_download_succeeded():
 
 
 def notify_download_failed():
-    response = requests.post(
+    requests.post(
         MAILGUN_SEND_URL,
         auth=('api', MAILGUN_API_KEY),
         data={
