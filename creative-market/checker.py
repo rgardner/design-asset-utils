@@ -14,8 +14,8 @@ import requests
 import creative_market
 
 DEBUG = bool(os.environ['CREATIVE_MARKET_DEBUG'])
-FACEBOOK_USERNAME = os.environ['CREATIVE_MARKET_FB_USERNAME']
-FACEBOOK_PASSWORD = os.environ['CREATIVE_MARKET_FB_PASSWORD']
+CREATIVE_MARKET_USERNAME = os.environ['CREATIVE_MARKET_USERNAME']
+CREATIVE_MARKET_PASSWORD = os.environ['CREATIVE_MARKET_PASSWORD']
 MAILGUN_SEND_URL = os.environ['CREATIVE_MARKET_MAILGUN_URL']
 MAILGUN_API_KEY = os.environ['CREATIVE_MARKET_MAILGUN_API_KEY']
 MAILGUN_FROM = os.environ['CREATIVE_MARKET_MAILGUN_FROM']
@@ -30,11 +30,9 @@ def main():
 
 
 def has_download_succeeded():
-    with creative_market.chrome_driver(DEBUG) as driver:
-        creative_market.login(driver, FACEBOOK_USERNAME, FACEBOOK_PASSWORD)
-
-        driver.get('https://creativemarket.com/free-goods')
-        free_sync_links = creative_market.get_free_dropbox_sync_links(driver)
+    with creative_market.quitting_creative_market_driver(DEBUG) as driver:
+        driver.login(CREATIVE_MARKET_USERNAME, CREATIVE_MARKET_PASSWORD)
+        free_sync_links = driver.get_free_dropbox_sync_links()
         return all(link.text == 'Synced' for link in free_sync_links)
 
 
