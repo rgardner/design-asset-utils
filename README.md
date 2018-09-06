@@ -19,13 +19,13 @@ $ vim .env
 To sync the 6 free goods offered by Creative Market to your Dropbox:
 
 ```sh
-$ pipenv run python downloader.py
+$ make run
 ```
 
 To validate that the script succeeded, check your Dropbox, or:
 
 ```sh
-$ pipenv run python checker.py
+$ make test
 ```
 
 `checker` validates that Creative Market thinks you've synced your 6 free

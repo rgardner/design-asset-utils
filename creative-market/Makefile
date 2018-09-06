@@ -10,7 +10,8 @@ check:
 	pipenv run pylint *.py
 
 run:
-	pipenv run python3 downloader.py
+	$(eval OUTPUT_FILENAME := $(shell date "+%y%m%d_%H%M%S_downloader"))
+	jupyter nbconvert --execute downloader.ipynb --output $(OUTPUT_FILENAME)
 
 test:
 	pipenv run pytest -m 'not email'
