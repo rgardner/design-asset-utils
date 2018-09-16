@@ -11,7 +11,7 @@ check:
 
 run:
 	$(eval OUTPUT_FILENAME := $(shell date "+%y%m%d_%H%M%S_downloader"))
-	jupyter nbconvert --execute downloader.ipynb --output $(OUTPUT_FILENAME)
+	pipenv run jupyter nbconvert --execute downloader.ipynb --output $(OUTPUT_FILENAME)
 
 test:
 	pipenv run pytest -m 'not email'
