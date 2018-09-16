@@ -1,2 +1,2 @@
 clock: python clock.py
-web: jupyter notebook --port 80
+web: ./start_jupyter

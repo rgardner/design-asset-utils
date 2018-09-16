@@ -1,0 +1,11 @@
+#!/bin/sh
+
+jupyter contrib nbextension intall --user
+jupyter nbextensions_configurator enable --user
+
+jupyter notebook \
+    --no-browser
+    --no-mathjax
+    --ip=*
+    --port "$PORT"
+    .
