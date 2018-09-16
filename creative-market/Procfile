@@ -1,1 +1,2 @@
 clock: python clock.py
+web: jupyter notebook --port 8000
