@@ -10,9 +10,7 @@ Install dependencies:
 ```sh
 cd creative-market
 pipenv install --dev
-# edit necessary environment variables
-cp .env.example .env
-vim .env
+# set necessary environment variables, see .env.example
 ```
 
 To sync the 6 free goods offered by Creative Market to your Dropbox:
